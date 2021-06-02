@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+watchdog = "*"
+
+[packages]
+requests = "*"
+streamlit = "*"
+
+[requires]
+python_version = "3.7"
+
+[scripts]
+test="pytest"
+app = "python -m streamlit run streamlit_app.py"
