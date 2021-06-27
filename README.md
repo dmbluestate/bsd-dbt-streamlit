@@ -27,14 +27,14 @@ should be up and running right out of the box.
 Install and run locally with pipenv (you will need to configure your [secrets.toml file](#secrets.toml) to actually be able to use the app)
 
 ```bash
-  pipenv install
-  pipenv run app
+>> pipenv install
+>> pipenv run app
 ```
 
 For Mac users, watchdog is included as a dev dependency, so you can include watchdog with
 
 ```bash
-  pipenv install -d
+>> pipenv install -d
 ```
 ## Configuration
 
@@ -56,7 +56,7 @@ You can see an example file in `.streamlit/example_secrets.toml`. You will need 
  - `API_TOKEN` - your DBT API key (for very obvious reasons we don't commit this to version control).
 
  - `DASHBOARD_USER` / `DASHBOARD_PASS` - username/password for the authorisation (please see
-below for why this is probably not a good thing to use). If you are always using the app locally, you likely will not require this, but can be useful if you want to host the app on an internal/external web page 
+below for why this is probably not a good thing to use). If you are always using the app locally, you likely will not require this, but can be useful if you want to host the app on an internal/external web page
 
  - `PROJECT_MAPPING` - This is mapping that links specific DBT project ids to a plain English name
 for displaying in the app. The project mapping is used to drive the select boxes that allow you
@@ -64,7 +64,7 @@ pick specific projects to drill down to (if you have multiple projects of course
 
 
  - `PROJECT_REPO_URL_MAPPING` - This is a mapping that maps the database you are using to the git repository where the code is stored, so you can view the queries of tables/tests that have failed in the browser
- 
+
 
 It's possible that this might be a bit Cazoo specific, but I hope it finds some use elsewhere. This comes from two main pieces;
 * When we have job failures, our analysts asked for a link directly to the repo for that file.
@@ -78,3 +78,14 @@ https://github.com/MyCompany/MyRepo/tree/main/my_folder/
 This is a repo hosted on git, the repo is called MyRepo, has 'main' as the primary repo branch
 and within the repo all the dbt work is in a folder called my_folder. This logic should work with other major git providers (gitlab, bitbucket etc), but please let us know if you have difficulties!
 
+### Contributing
+
+Contributions of new features or bugfixes are (very) welcome. Please though, if you would like to contribute, install our pre-commit hooks to ensure the code matches our formatting standards.
+
+```bash
+>> pre-commit install --hook-type pre-commit
+# if you want to run the commit hooks after install you can run the below (note that you do not need to do this before evey commit, it will happen automatically)
+>> pre-commit run --all-files
+```
+
+If you have any queries, questions or want to talk through a possible new feature, please raise a [issue](https://github.com/Cazoo-uk/dbt-streamlit/issues) and we will get back to you as soon as possible

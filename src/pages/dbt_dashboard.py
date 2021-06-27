@@ -94,8 +94,6 @@ def render_page():  # NOQA: CFQ001
             )
         ),
     )
-    st.write(PROJECT_MAPPING)
-    st.write(PROJECT_REPO_URL_MAPPING)
 
     job_id = chosen_df.loc[
         (chosen_df["name"] == run_name[0]) & (chosen_df["project_name"] == run_name[1])
