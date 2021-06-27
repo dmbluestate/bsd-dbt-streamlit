@@ -24,14 +24,14 @@ should be up and running right out of the box.
 
 ## Installation
 
-Install and run locally with pipenv
+Install and run locally with pipenv (you will need to configure your [secrets.toml file](#secrets.toml) to actually be able to use the app)
 
 ```bash
   pipenv install
   pipenv run app
 ```
 
-For Mac users watchdog is included as a dev dependency, so you can include watchdog with
+For Mac users, watchdog is included as a dev dependency, so you can include watchdog with
 
 ```bash
   pipenv install -d
@@ -49,20 +49,24 @@ Running streamlit locally will use these secrets (accessible both as environment
 and from streamlit.secrets) and if you decide to deploy onto Streamlit for Teams then you
 can use the same format to add your secrets directly into the web interface.
 
-ACCOUNT_ID - your DBT account id
+You can see an example file in `.streamlit/example_secrets.toml`. You will need to copy this file/rename it to `.streamlit/secrets.toml` if you want to use it
 
-API_TOKEN - your DBT API key (for very obvious reasons we don't commit this to version control).
+ - `ACCOUNT_ID` - your DBT account id
 
-dashboard_user / dashboard_pass - username/password for the authorisation (please see
-below for why this is probably not a good thing to use)
+ - `API_TOKEN` - your DBT API key (for very obvious reasons we don't commit this to version control).
 
-PROJECT_MAPPING - This is mapping that links specific DBT project ids to a plain English name
+ - `DASHBOARD_USER` / `DASHBOARD_PASS` - username/password for the authorisation (please see
+below for why this is probably not a good thing to use). If you are always using the app locally, you likely will not require this, but can be useful if you want to host the app on an internal/external web page 
+
+ - `PROJECT_MAPPING` - This is mapping that links specific DBT project ids to a plain English name
 for displaying in the app. The project mapping is used to drive the select boxes that allow you
-pick specifc projects to drill down to (if you have multiple projects of course).
+pick specific projects to drill down to (if you have multiple projects of course).
 
 
-BQ_BASE_URL / REDSHIFT_BASE_URL - Now, it's possible that this might be a bit Cazoo specific, but I
-hope it finds some use elsewhere. This comes from two main pieces;
+ - `PROJECT_REPO_URL_MAPPING` - This is a mapping that maps the database you are using to the git repository where the code is stored, so you can view the queries of tables/tests that have failed in the browser
+ 
+
+It's possible that this might be a bit Cazoo specific, but I hope it finds some use elsewhere. This comes from two main pieces;
 * When we have job failures, our analysts asked for a link directly to the repo for that file.
 * We currently have two main repos for DBT, one for all Big Query jobs and one for Redshift
 
@@ -71,9 +75,6 @@ So as an example;
 
 https://github.com/MyCompany/MyRepo/tree/main/my_folder/
 
-This is a repo hosted on GitHub, the repo is called MyRepo, has 'main' as the primary repo branch
-and within the repo all the dbt work is in a folder called my_folder.
+This is a repo hosted on git, the repo is called MyRepo, has 'main' as the primary repo branch
+and within the repo all the dbt work is in a folder called my_folder. This logic should work with other major git providers (gitlab, bitbucket etc), but please let us know if you have difficulties!
 
-In open sourcing this we took a decision that most interested people are likely to be using Big Query
-or Redshift, and so this will be useful functionality.  But if you're using something else let us know, or
-even better raise a PR to add functionality into the app!

@@ -17,8 +17,7 @@ from src.classes import DbtCloud
 
 PROJECT_MAPPING = st.secrets["PROJECT_MAPPING"]
 ACCOUNT_ID = int(os.environ["ACCOUNT_ID"])
-BQ_BASE_URL = os.environ["BQ_BASE_URL"]
-REDSHIFT_BASE_URL = os.environ["REDSHIFT_BASE_URL"]
+PROJECT_REPO_URL_MAPPING = st.secrets["PROJECT_REPO_URL_MAPPING"]
 
 
 CHOSEN_DF_MAPPING = {"all": get_all_runs}
@@ -34,6 +33,10 @@ REQUIRED_COLUMNS_RUNS = [
     "job_id",
 ]
 REQUIRED_COLUMNS_JOBS = ["name", "next_run"]
+
+
+class UnknownAdapterException(Exception):
+    pass
 
 
 def render_page():  # NOQA: CFQ001
@@ -91,6 +94,8 @@ def render_page():  # NOQA: CFQ001
             )
         ),
     )
+    st.write(PROJECT_MAPPING)
+    st.write(PROJECT_REPO_URL_MAPPING)
 
     job_id = chosen_df.loc[
         (chosen_df["name"] == run_name[0]) & (chosen_df["project_name"] == run_name[1])
@@ -106,10 +111,16 @@ def render_page():  # NOQA: CFQ001
         manifest = dbt.get_run_manifest(
             run_results["metadata"]["env"]["DBT_CLOUD_RUN_ID"]
         )
-        if manifest["metadata"]["adapter_type"] == "bigquery":
-            base_url = BQ_BASE_URL
-        else:
-            base_url = REDSHIFT_BASE_URL
+        # if manifest["metadata"]["adapter_type"] == "bigquery":
+        #     base_url = BQ_BASE_URL
+        # else:
+        #     base_url = REDSHIFT_BASE_URL
+        adapter = manifest["metadata"]["adapter_type"]
+        base_url = PROJECT_REPO_URL_MAPPING.get(adapter)
+        if base_url is None:
+            raise UnknownAdapterException(
+                f"The adapter type {adapter} was not found in the PROJECT_REPO_URL_MAPPING"
+            )
 
         failed_steps = find_failed_results(run_results)
 
