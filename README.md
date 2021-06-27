@@ -84,6 +84,7 @@ Contributions of new features or bugfixes are (very) welcome. Please though, if 
 
 ```bash
 >> pre-commit install --hook-type pre-commit
+>> pre-commit install --hook-type pre-push
 # if you want to run the commit hooks after install you can run the below (note that you do not need to do this before evey commit, it will happen automatically)
 >> pre-commit run --all-files
 ```

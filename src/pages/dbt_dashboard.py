@@ -109,10 +109,6 @@ def render_page():  # NOQA: CFQ001
         manifest = dbt.get_run_manifest(
             run_results["metadata"]["env"]["DBT_CLOUD_RUN_ID"]
         )
-        # if manifest["metadata"]["adapter_type"] == "bigquery":
-        #     base_url = BQ_BASE_URL
-        # else:
-        #     base_url = REDSHIFT_BASE_URL
         adapter = manifest["metadata"]["adapter_type"]
         base_url = PROJECT_REPO_URL_MAPPING.get(adapter)
         if base_url is None:
