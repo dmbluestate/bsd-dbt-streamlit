@@ -15,7 +15,7 @@ __pycache__/
 .coveragerc
 
 # Streamlit
-.streamlit/
+.streamlit/secrets.toml
 
 # Coverage Report
 /htmlcov

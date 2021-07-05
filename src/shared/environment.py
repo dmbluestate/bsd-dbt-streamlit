@@ -19,8 +19,8 @@ class Auth:
 
         if (
             not self.auth_success
-            and self.user == os.environ["dashboard_user"]
-            and self.password == os.environ["dashboard_pass"]
+            and self.user == os.environ["DASHBOARD_USER"]
+            and self.password == os.environ["DASHBOARD_PASS"]
         ):
             self.auth_success = True
 

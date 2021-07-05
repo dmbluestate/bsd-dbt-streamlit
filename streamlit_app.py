@@ -36,7 +36,7 @@ def set_up_auth():
 def main():
     st.set_page_config(layout="wide")
     set_up_app()
-    # set_up_auth()
+    set_up_auth()
     render_page_dbt_dashboard()
 
 
