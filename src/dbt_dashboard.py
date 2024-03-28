@@ -51,7 +51,7 @@ def get_all_runs(dbt: DbtCloud) -> dict:
     Returns:
         dict: 500 latest runs
     """
-    all_runs = dbt.list_runs(params={"order_by": "-finished_at", "limit": 500}).response
+    all_runs = dbt.list_runs(params={"order_by": "finished_at", "limit": 500}).response
     return all_runs
 
 
