@@ -24,7 +24,7 @@ class DbtCloud:
     def _get(self, url_suffix: str, params: dict = None) -> dict:
         url = self.api_base + url_suffix
         response = requests.get(url, headers=self.headers, params=params)
-        response.raise_for_status()
+        #response.raise_for_status()
         return response.json()
 
     def list_jobs(self, params: dict = None):
